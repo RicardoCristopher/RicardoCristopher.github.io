@@ -1,0 +1,721 @@
+/* ------------------------------------
+			   BASE
+------------------------------------ */
+	*{
+		user-select: none;
+	}
+	
+	html{
+		width: 100%;
+		height: auto;
+		min-height: 100%;
+	}
+
+	body{
+		width: 100%;
+		height: auto;
+		min-height: 100%;
+		margin: 0;
+		background-color: transparent;
+	}
+
+	body.daylight{
+		background-color: #ddd;
+		transition: background-color .2s;
+	}
+
+	body.nightlight{
+		background-color: #000;
+		transition: background-color .2s;
+	}
+
+	input,textarea{
+		user-select: contain;
+	}
+
+/* ------------------------------------
+				BG
+------------------------------------ */
+
+	body > #bg{
+		transition: background-image .2s;
+		width: 100%;
+		height: auto;
+		min-height: 100vh;
+		position: fixed;
+	}
+
+	body.daylight > #bg{
+		background-image: url(img/1.jpg);
+		background-repeat: no-repeat;
+	    background-size: cover;
+	}
+
+	body.nightlight > #bg{
+		background-image: url(img/0.jpg);
+		background-repeat: no-repeat;
+	    background-size: cover;
+	}
+
+/* ------------------------------------
+				IO
+------------------------------------ */
+	
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes candle{
+		0% {
+			opacity: 1;
+		}
+		20% {
+			opacity: .9;
+		}
+		40% {
+			opacity: .8;
+		}
+		60% {
+			opacity: .7;
+		}
+		80% {
+			opacity: .6;
+		}
+		100% {
+			opacity: .5;
+		}
+	}
+
+	@keyframes animate {
+		0% {
+			transform: rotate(180deg);
+		}
+		50% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes animate-reverse {
+		0% {
+			transform: rotate(360deg);
+		}
+
+		50% {
+			transform: rotate(180deg);
+		}
+
+		100% {
+			transform: rotate(0deg);
+		}
+	}
+
+	div.particles{
+		position: fixed;
+		min-width: 100%;
+		z-index: 1;
+		transform-origin: right;
+		animation: spin 17s linear infinite;
+	}
+
+	div.mdl {
+		top: 40% !important;
+    	right: 45% !important;
+	}
+
+	div.particles:nth-child(even) {
+		animation-direction: reverse;
+		right: 5%;
+	}
+
+	div.particles > span {
+		position: absolute;
+	}
+
+	div.particles > span{
+		top:    calc(80px * var(--p));
+		left:   calc(80px * var(--p));
+		bottom: calc(80px * var(--p));
+		right:  calc(80px * var(--p));
+	}
+
+	div.particles > span::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: -8px;
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+	}
+
+	.nightlight > div.particles span::before {
+		background: rgba(255,255,255,1);
+		box-shadow: 0 0 5px 2px rgb(255 255 255), 0 0 30px 3px rgb(255 255 255);
+	}
+
+	.daylight > div.particles span::before {
+		background: rgba(0,0,0,1);
+		box-shadow: 0 0 5px 2px rgb(0 0 0), 0 0 30px 3px rgb(0 0 0);
+	}
+
+	div.particles > span:nth-child(even)::before{
+		animation: candle 1s linear infinite alternate;
+	}
+
+	div.particles > span.io:nth-child(odd)::before{
+		animation: candle 1s linear infinite alternate-reverse;
+	}	
+
+	div.particles span:nth-child(3n + 1) {
+	  animation: animate 17s alternate infinite;
+	}
+
+	div.particles span:nth-child(3n + 2) {
+	  animation: animate-reverse 7s alternate infinite;
+	}
+
+	div.particles span:nth-child(3n + 3) {
+	  animation: animate 11s alternate infinite; 
+	}
+
+	.warning .io::before{
+		background: rgb(255 0 0) !important;
+    	box-shadow: 0 0 5px 2px rgb(255 0 0), 0 0 30px 3px rgb(255 0 0) !important;
+	}
+
+/* ------------------------------------
+			 BTN AREA
+------------------------------------ */
+	
+	nav.container{
+		display: flex;
+		justify-content: center;
+	    align-items: center;
+	    position: relative;
+	    z-index: 3;
+	    width: 80vw;
+	    height: auto;
+	    min-height: 100vh;
+	    text-align: center;
+	    margin: 0 auto;
+	    opacity: 0;
+
+	    -moz-transition: opacity 2s ease-in-out;
+	    -webkit-transition: opacity 2s ease-in-out;
+	    -ms-transition: opacity 2s ease-in-out;
+	    transition: opacity 2s ease-in-out;
+	}
+
+	div.btnGroup {
+		display: none;
+		position: fixed;
+	    top: 4vh;
+	    width: 80vw;
+	    height: 6vh;
+	}
+
+	div.btnGroup > a{
+		text-decoration: none;
+	}
+
+	div.btnGroup > a > i::before {
+		font-size: 7vh;
+    	margin: 0 2vh;
+    	transition: color .3s,transform .3s;
+	}
+
+	div.btnGroup > a > i:hover::before {
+	    transform: scale(1.3);
+	    transition: color .3s,transform .3s;
+	}
+
+	.daylight div.btnGroup > a > i::before{
+		color: #000;
+	}
+
+	.nightlight div.btnGroup > a > i::before{
+		color: #fff;
+	}
+
+	.accordion {
+		width: 70vw;
+		display: flex;
+		justify-content: center;
+		height: 70vh;
+		gap: 1.5vw;
+		transition: 0.3s;
+		padding-inline: unset;
+	}
+
+	.accordion > li:nth-child(even){
+		background-color: #161616;
+	}
+
+	.accordion > li:nth-child(odd){
+		background-color: #bbb;
+	}
+
+	.accordion:hover {
+		gap: 0;
+	}
+
+	.accordion > li {
+		position: relative;
+		overflow: hidden;
+		flex: 0 0 8vw;
+		border: 0.1vw solid #fff;
+		border-radius: 4vw;
+		opacity: 0.9;
+		cursor: default;
+
+		display: flex;
+		justify-content: center;
+    	align-items: center;
+	}
+
+	.accordion > li > a{
+		width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    z-index: 1;
+	}
+
+	.accordion > li#git, .accordion > li#lin{
+		cursor: pointer;
+	}
+
+	.accordion > li#about > i::before{
+		color: #fff;
+	}
+
+	.accordion > li#about > .content > span{
+		width: 20vw;
+	}
+
+	.accordion > li#about > .content > span > p{
+		font-size: 1.4vw;
+    	text-shadow: 1px 0 20px #fff;
+	}
+
+	.accordion > li#git > i::before{
+		color: #000;
+	}
+
+	.accordion > li#lin > i::before{
+		color: #fff;
+	}
+
+	.accordion > li#contact > i::before{
+		color: #000;
+		font-size: 6vw;
+	}
+
+	.accordion > li#contact > .content > span{
+		display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	}
+
+	.accordion > li > i {
+		display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
+
+	.accordion > li > i::before {
+		font-size: 8vw;
+		transition: .3s;
+	}
+
+	.accordion > li.resizeable:hover > i::before {
+		transition: .3s;
+		font-size: 50vw !important;
+    	opacity: .5;
+	}
+
+	.accordion li img {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		translate: -50% -50%;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: grayscale(0.5);
+	}
+
+	.accordion li,
+	.accordion li img,
+	.accordion li .content,
+	.accordion li .content span {
+		transition: 0.3s;
+	}
+
+	.accordion h2 {
+		font-weight: 400;
+		font-size: 2vw;
+		line-height: 45px;
+		margin-bottom: .7vh;
+		white-space: nowrap;
+		font-family: impact;
+	}
+
+	.accordion p {
+		font-size: 1vw;
+		font-family: trebuchet MS;
+	}
+
+	.accordion > li#about p {
+		line-height: 3vh;
+	}
+
+	.accordion > li > .content {
+		display: flex;
+		flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+    
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1;
+		color: #fff;
+		padding: 1vw;
+		background: #02022e;
+		background: linear-gradient(
+		0deg,
+		rgb(0 0 0 / 70%) 10%,
+		rgb(255 255 255 / 0%) 100%
+		);
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	.accordion > li span {
+		position: absolute;
+		z-index: 3;
+		left: 50%;
+		translate: -300px 0;
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	.accordion > li#intro span {
+		bottom: 2vh;
+	}
+
+	.accordion > li.resizeable:hover {
+		flex: 0 1 25vw;
+		scale: 1.1;
+		z-index: 10;
+		opacity: 1;
+	}
+
+	.accordion > li.resizeable:hover > .content {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.accordion > li.resizeable:hover span {
+		translate: -50% 0;
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.accordion > li.perma > i::before {
+		transition: .3s;
+		font-size: 50vw !important;
+    	opacity: .5;
+	}
+
+	.accordion > li.perma {
+		flex: 0 1 25vw;
+		scale: 1.1;
+		z-index: 10;
+		opacity: 1;
+	}
+
+	.accordion > li.perma > .content {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.accordion > li.perma span {
+		translate: -50% 0;
+		opacity: 1;
+		visibility: visible;
+	}
+
+/* ------------------------------------
+			 	FORM
+------------------------------------ */
+	.content > form{
+		display: inline-table;
+		z-index: 1;
+	}
+
+	.form-group {
+	    margin-bottom: 2vh;
+	}
+
+	.form-group > textarea{
+		resize: vertical;
+		max-height: 10vh;
+    	min-height: 6vh;
+	}
+
+	.form-group textarea::placeholder, .form-group input::placeholder{
+		font: 1.5vw trebuchet MS;
+	}
+
+	.form-group .required{
+		box-shadow: rgb(203 0 0) 0px 0px 5px 2px !important;
+	}
+
+	.form-row {
+	    display: -ms-flexbox;
+	    display: flex;
+	    -ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	    margin-right: -5px;
+	    margin-left: -5px;
+	}
+
+	.col {
+	    -ms-flex-preferred-size: 0;
+	    flex-basis: 0;
+	    -ms-flex-positive: 1;
+	    flex-grow: 1;
+	    max-width: 100%;
+	}
+
+	.form-row > .col, .form-row > [class*=col-] {
+	    padding-right: 5px;
+	    padding-left: 5px;
+	}
+
+	.form-control {
+	    display: block;
+	    width: 20vw;
+    	height: 4vh;
+	    padding: 0.5vh;
+	    font-size: 1.8vh;
+	    font-weight: 400;
+	    line-height: 1.5;
+	    color: #495057;
+	    background-color: #fff;
+	    background-clip: padding-box;
+	    border: 1px solid #ced4da;
+	    border-radius: 0.4vw;
+	    transition: border-color .2s ease-in-out,box-shadow .2s ease-in-out;
+	}
+
+	.btn {
+	    display: inline-block;
+	    font-weight: 400;
+	    color: #212529;
+	    text-align: center;
+	    vertical-align: middle;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-color: transparent;
+	    border: 1px solid transparent;
+	    padding: 0.375rem 0.75rem;
+	    font-size: 1rem;
+	    line-height: 1.5;
+	    border-radius: 0.25rem;
+	    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
+
+	.btn:not(:disabled):not(.disabled) {
+	    cursor: pointer;
+	}
+
+	.btn-block {
+	    display: block;
+	    width: 100%;
+	}
+
+	.btn-group-lg > .btn, .btn-lg {
+	    padding: 1vh 1.5vw;
+	    font-size: 2vw;
+	    line-height: 1.5;
+	    border-radius: 0.4vw;
+	}
+
+	.btn-dark {
+	    color: #fff;
+	    background-color: #343a40;
+	    border: 1px solid #fff;
+	}
+
+	.btn-dark:hover {
+	    background-color: #52575c;
+	}
+
+/* ------------------------------------
+			 SWITCHER
+------------------------------------ */
+	.switcher-wrapper{
+		position: fixed;
+	    bottom: 0.5vh;
+    	left: 0.5vw;
+	    z-index: 4;
+
+	    background-color: #f3f3f3;
+	    width: 1.65vw;
+    	height: 1.7vw;
+    	border: thin groove #afafaf78;;
+	    border-radius: 4vw;
+
+	    padding: .15vw;
+	}
+
+	.switcher-wrapper > input#switcher{
+		display: none;
+	}
+
+	.switcher-wrapper > label > i::before{
+		font-size: 1vw;
+	}
+
+	.switcher-wrapper > input#switcher + label > i{
+		color: #3b3b3b;
+		transition: text-shadow .2s;
+		display: flex;
+    	justify-content: center;
+    	align-items: center;
+	}
+
+	.switcher-wrapper > input#switcher:checked + label > i{
+		color: #f00;
+		text-shadow: 0 0 5px #ff0000;
+		transition: text-shadow .2s;
+	}
+
+	.switcher-wrapper > .switchBtn{
+		display: flex;
+	    justify-content: center;
+	    align-items: center;
+
+	    background-color: #bbb;
+	    width: 1.6vw;
+	    height: 1.7vw;
+	    border-radius: 4vw;
+	    box-shadow: inset 1px -2px 2px 1px #00000073;
+
+	    transition: box-shadow .2s;
+	}
+
+	.switcher-wrapper > .switchBtn:active{
+		box-shadow: none;
+		transition: box-shadow .2s;
+	}
+
+/* ------------------------------------
+		 MOBILE RESPONSIVE
+------------------------------------ */
+
+	@media screen and (orientation: portrait) {
+		nav.container {
+		    width: 96vw;
+		}
+
+		.switcher-wrapper {
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    bottom: 1vh;
+		    left: 1.5vw;
+		    width: 3vh;
+		    height: 3vh;
+		    border-radius: 4vh;
+		    padding: 0.15vh;
+		}
+
+		.switcher-wrapper > .switchBtn {
+		    width: 2.6vh;
+		    height: 2.6vh;
+		    border-radius: 4vh;
+		}
+
+		.switcher-wrapper > label > i::before {
+		    font-size: 2vh;
+		}
+
+		div.btnGroup {
+			display: block;
+		}
+
+		.accordion {
+		    width: 86vw;
+		}
+
+		.accordion > li#git{
+			display: none;
+		}
+
+		.accordion > li#lin{
+			display: none;
+		}
+
+		.accordion > li {
+		    flex: 0 0 8vh;
+		    border: 0.1vw solid #fff;
+		    border-radius: 7vh;
+		    opacity: 0.9;
+		}
+
+		.accordion > li.resizeable:hover {
+		    flex: 0 1 55vw;
+		}
+
+		.accordion h2 {
+		    font-size: 5vw;
+		}
+
+		.accordion p {
+		    font-size: 3vw;
+		}
+
+		.accordion > li#about > .content > span {
+		    width: 45vw;
+		}
+
+		.accordion > li#about > .content > span > p {
+		    font-size: 3.6vw;
+		}
+
+		.accordion > li.perma {
+			flex: 0 1 55vw;
+		}
+
+		.form-control {
+		    width: 40vw;
+		    height: 4vh;
+		    border-radius: 1.1vh;
+		}
+
+		.form-group > textarea {
+		    max-height: 20vh;
+		    min-height: 16vh;
+		}
+
+		.form-group textarea::placeholder, .form-group input::placeholder {
+		    font-size: 2.3vh;
+		}
+	}
+
